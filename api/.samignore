@@ -1,0 +1,4 @@
+solutions/
+*.md
+buildspec.yml
+samconfig.toml
