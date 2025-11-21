@@ -20,7 +20,7 @@ phases:
       - echo "Building the AWS SAM environment..."
       - sam build
       - echo "Deploying the AWS SAM environment...."
-      - cat api/template.yml | grep apiBucket
+      - cat template.yml | grep apiBucket
       - sam deploy --stack-name polly-notes-api-2 --s3-bucket $API_BUCKET --capabilities CAPABILITY_IAM
   build:
     commands:
