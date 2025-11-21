@@ -9,7 +9,7 @@ phases:
       - cd $CODEBUILD_SRC_DIR
       - echo "Replacing placeholders in SAM template..."
       - sed -i "s~\[apiBucket\]~$API_BUCKET~g" template.yml
-      - cd $CODEBUILD_SRC_DIR_webRepo
+      - cd ../web
       - npm install
   pre_build:
     commands:
