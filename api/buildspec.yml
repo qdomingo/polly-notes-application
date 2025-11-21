@@ -17,12 +17,12 @@ phases:
       - echo "Building the AWS SAM environment..."
       - sam build
       - echo "Deploying the AWS SAM environment...."
-      - sam deploy --stack-name polly-notes-api --s3-bucket $API_BUCKET --capabilities CAPABILITY_IAM
+      - sam deploy --stack-name polly-notes-api-2 --s3-bucket $API_BUCKET --capabilities CAPABILITY_IAM
   build:
     commands:
       - echo "Retrieving SAM Deployment Outputs..."
-      - AppClientId=$(aws cloudformation describe-stacks --stack-name polly-notes-api --query 'Stacks[0].Outputs[?OutputKey==`AppClientId`].OutputValue[]' --output text)
-      - UserPoolId=$(aws cloudformation describe-stacks --stack-name polly-notes-api --query 'Stacks[0].Outputs[?OutputKey==`UserPoolId`].OutputValue[]' --output text)
+      - AppClientId=$(aws cloudformation describe-stacks --stack-name polly-notes-api-2 --query 'Stacks[0].Outputs[?OutputKey==`AppClientId`].OutputValue[]' --output text)
+      - UserPoolId=$(aws cloudformation describe-stacks --stack-name polly-notes-api-2 --query 'Stacks[0].Outputs[?OutputKey==`UserPoolId`].OutputValue[]' --output text)
       - ApiURL=$(aws cloudformation describe-stacks --stack-name polly-notes-api --query 'Stacks[0].Outputs[?OutputKey==`ApiURL`].OutputValue[]' --output text)
       - echo "Creating Amazon Cognito user account..."
       - aws cognito-idp sign-up --client-id $AppClientId --username student --password student
