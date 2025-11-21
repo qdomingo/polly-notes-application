@@ -8,6 +8,8 @@ phases:
       - echo "Retrieving external variables.."
       - cd $CODEBUILD_SRC_DIR
       - echo "Replacing placeholders in SAM template..."
+      - pwd
+      - ls -l
       - sed -i "s~\[apiBucket\]~$API_BUCKET~g" template.yml
       - cd ../web
       - npm install
