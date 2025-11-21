@@ -10,7 +10,7 @@ phases:
       - pwd
       - ls -l
       - sed -i "s~\[apiBucket\]~$API_BUCKET~g" api/template.yml
-      - cd /web
+      - cd web
       - npm install
   pre_build:
     commands:
@@ -35,7 +35,7 @@ phases:
       - echo "Configuring web application..."
       - pwd
       - ls -l
-      - cd /web
+      - cd web
       - echo "Replacing placeholders in website configuration..."
       - sed -i "s~\[AppClientId\]~$AppClientId~g" src/Config.js
       - sed -i "s~\[UserPoolId\]~$UserPoolId~g" src/Config.js
