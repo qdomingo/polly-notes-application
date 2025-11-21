@@ -14,7 +14,9 @@ phases:
       - npm install
   pre_build:
     commands:
-      - cd api
+      - pwd
+      - ls -l
+      - cd ../api
       - echo "Building the AWS SAM environment..."
       - sam build
       - echo "Deploying the AWS SAM environment...."
@@ -35,7 +37,7 @@ phases:
       - echo "Configuring web application..."
       - pwd
       - ls -l
-      - cd web
+      - cd ../web
       - echo "Replacing placeholders in website configuration..."
       - sed -i "s~\[AppClientId\]~$AppClientId~g" src/Config.js
       - sed -i "s~\[UserPoolId\]~$UserPoolId~g" src/Config.js
