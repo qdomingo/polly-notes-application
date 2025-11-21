@@ -6,16 +6,15 @@ phases:
       python: 3.12
     commands:
       - echo "Retrieving external variables.."
-      - cd $CODEBUILD_SRC_DIR
       - echo "Replacing placeholders in SAM template..."
       - pwd
       - ls -l
-      - sed -i "s~\[apiBucket\]~$API_BUCKET~g" template.yml
-      - cd ../web
+      - sed -i "s~\[apiBucket\]~$API_BUCKET~g" api/template.yml
+      - cd /web
       - npm install
   pre_build:
     commands:
-      - cd $CODEBUILD_SRC_DIR
+      - cd api
       - echo "Building the AWS SAM environment..."
       - sam build
       - echo "Deploying the AWS SAM environment...."
@@ -34,7 +33,9 @@ phases:
       - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "5"}, "Note": {"S": "Maximum size of an item is 400 KB?"}}'''
       - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "4"}, "Note": {"S": "I love DyDB"}}'''
       - echo "Configuring web application..."
-      - cd $CODEBUILD_SRC_DIR_webRepo
+      - pwd
+      - ls -l
+      - cd /web
       - echo "Replacing placeholders in website configuration..."
       - sed -i "s~\[AppClientId\]~$AppClientId~g" src/Config.js
       - sed -i "s~\[UserPoolId\]~$UserPoolId~g" src/Config.js
