@@ -4,7 +4,8 @@ Description: SAM notes application api
 Parameters:
   apiBucket:
     Type: String
-    Default: "[apiBucket]"
+    ## Default: "[apiBucket]"
+    Default: serverless-app-qdomingo-templates
   tableName:
     Type: String
     Default: Notes
