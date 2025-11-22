@@ -7,22 +7,16 @@ phases:
     commands:
       - echo "Retrieving external variables.."
       - echo "Replacing placeholders in SAM template..."
-      - pwd
-      - ls -l
       - echo "API_BUCKET=$API_BUCKET"
       - sed -i "s~\[apiBucket\]~$API_BUCKET~g" api/template.yml
-      - cat api/template.yml | grep apiBucket
       - cd web
       - npm install
   pre_build:
     commands:
-      - pwd
-      - ls -l
       - cd ../api
       - echo "Building the AWS SAM environment..."
       - sam build
       - echo "Deploying the AWS SAM environment...."
-      - cat template.yml | grep apiBucket
       - sam deploy --stack-name polly-notes-api-2 --s3-bucket $API_BUCKET --capabilities CAPABILITY_IAM
   build:
     commands:
@@ -35,11 +29,9 @@ phases:
       - echo "Confirming the new Cognito account..."
       - aws cognito-idp admin-confirm-sign-up --user-pool-id $UserPoolId --username student
       - echo "Create items in DynamoDB table..."
-      - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "5"}, "Note": {"S": "Maximum size of an item is 400 KB?"}}'''
-      - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "4"}, "Note": {"S": "I love DyDB"}}'''
+      - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "1"}, "Note": {"S": "Maximum size of an item is 400 KB?"}}'''
+      - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "2"}, "Note": {"S": "I love DyDB"}}'''
       - echo "Configuring web application..."
-      - pwd
-      - ls -l
       - cd ../web
       - echo "Replacing placeholders in website configuration..."
       - sed -i "s~\[AppClientId\]~$AppClientId~g" src/Config.js
