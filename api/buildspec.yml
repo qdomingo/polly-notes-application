@@ -23,7 +23,7 @@ phases:
       - echo "Retrieving SAM Deployment Outputs..."
       - AppClientId=$(aws cloudformation describe-stacks --stack-name polly-notes-api-2 --query 'Stacks[0].Outputs[?OutputKey==`AppClientId`].OutputValue[]' --output text)
       - UserPoolId=$(aws cloudformation describe-stacks --stack-name polly-notes-api-2 --query 'Stacks[0].Outputs[?OutputKey==`UserPoolId`].OutputValue[]' --output text)
-      - ApiURL=$(aws cloudformation describe-stacks --stack-name polly-notes-api --query 'Stacks[0].Outputs[?OutputKey==`ApiURL`].OutputValue[]' --output text)
+      - ApiURL=$(aws cloudformation describe-stacks --stack-name polly-notes-api-2 --query 'Stacks[0].Outputs[?OutputKey==`ApiURL`].OutputValue[]' --output text)
       - echo "Creating Amazon Cognito user account..."
       - aws cognito-idp sign-up --client-id $AppClientId --username student --password student
       - echo "Confirming the new Cognito account..."
@@ -32,6 +32,8 @@ phases:
       - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "1"}, "Note": {"S": "Maximum size of an item is 400 KB?"}}'''
       - 'aws dynamodb put-item --table-name $TABLE_NAME --item ''{"UserId": {"S": "student"}, "NoteId": {"N": "2"}, "Note": {"S": "I love DyDB"}}'''
       - echo "Configuring web application..."
+      - pwd
+      - ls -l
       - cd ../web
       - echo "Replacing placeholders in website configuration..."
       - sed -i "s~\[AppClientId\]~$AppClientId~g" src/Config.js
